@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Asma Ijaz — SQA Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Nunito',sans-serif;font-weight:400;background:#f9f9f7;color:#1a1a2e;overflow-x:hidden;line-height:1.7}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+:root{
+  --navy:#1a1a2e;--teal:#0f9688;--teal-light:#12b3a3;--teal-pale:#e8f7f5;
+  --slate:#4a5568;--light:#f9f9f7;--white:#ffffff;--border:#e8e8e4;
+  --shadow:0 4px 24px rgba(26,26,46,0.08);--shadow-lg:0 12px 48px rgba(26,26,46,0.14);
+  --radius:12px;--radius-sm:8px;
+}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0f0ee}::-webkit-scrollbar-thumb{background:var(--teal);border-radius:4px}
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(249,249,247,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:box-shadow 0.3s}
+#navbar.scrolled{box-shadow:var(--shadow)}
+.nav-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:-0.02em}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-family:'Outfit',sans-serif;font-weight:500;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;color:var(--slate);transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform 0.25s}
+.nav-links a:hover{color:var(--teal)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-hire{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:var(--teal);color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:0.83rem;border-radius:6px;letter-spacing:0.04em;text-transform:uppercase;transition:background 0.2s,transform 0.15s}
+.nav-hire:hover{background:var(--teal-light);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
+#mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;z-index:999;background:var(--white);border-bottom:1px solid var(--border);padding:1.5rem 5%;flex-direction:column;gap:1rem}
+#mobile-menu a{font-family:'Outfit',sans-serif;font-weight:600;font-size:1rem;color:var(--navy);padding:0.5rem 0;border-bottom:1px solid var(--border)}
+#mobile-menu.open{display:flex}
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;background:var(--light);position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;top:-120px;right:-80px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(15,150,136,0.08) 0%,transparent 70%);pointer-events:none}
+#hero::after{content:'';position:absolute;bottom:-80px;left:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(15,150,136,0.05) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 0.9fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:var(--teal-pale);border:1px solid rgba(15,150,136,0.2);border-radius:20px;font-family:'Outfit',sans-serif;font-size:0.78rem;font-weight:600;color:var(--teal);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:1.25rem}
+.hero-tag-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.85)}}
+.hero-greeting{font-family:'Outfit',sans-serif;font-weight:300;font-size:1.2rem;color:var(--slate);margin-bottom:0.4rem}
+.hero-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(2.8rem,5.5vw,5rem);line-height:1.0;color:var(--navy);letter-spacing:-0.03em;margin-bottom:0.6rem}
+.hero-name span{color:var(--teal)}
+.hero-role{font-family:'Outfit',sans-serif;font-weight:500;font-size:clamp(1rem,2vw,1.4rem);color:var(--slate);margin-bottom:1.5rem}
+.hero-role strong{color:var(--navy)}
+.hero-desc{font-size:1rem;color:var(--slate);line-height:1.85;max-width:520px;margin-bottom:2rem}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--teal);color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:0.9rem;border-radius:8px;transition:background 0.2s,transform 0.15s,box-shadow 0.2s}
+.btn-primary:hover{background:var(--teal-light);transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,150,136,0.3)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border:2px solid var(--navy);color:var(--navy);font-family:'Outfit',sans-serif;font-weight:600;font-size:0.9rem;border-radius:8px;transition:border-color 0.2s,color 0.2s,transform 0.15s}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Outfit',sans-serif;font-weight:800;font-size:2rem;color:var(--navy);line-height:1}
+.hero-stat-num span{color:var(--teal)}
+.hero-stat-label{font-size:0.78rem;color:var(--slate);margin-top:3px;font-weight:500}
+.hero-stat-divider{width:1px;background:var(--border);align-self:stretch}
+.hero-right{position:relative}
+.hero-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.hero-card:last-child{margin-bottom:0}
+.hcard-icon{width:40px;height:40px;border-radius:10px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;flex-shrink:0}
+.hcard-icon svg{width:20px;height:20px;stroke:var(--teal);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hcard-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:0.25rem}
+.hcard-text{font-size:0.82rem;color:var(--slate);line-height:1.6}
+.award-badge{display:inline-flex;align-items:center;gap:6px;margin-top:0.6rem;padding:4px 10px;background:#fff8e6;border:1px solid #f5c842;border-radius:20px;font-size:0.72rem;font-weight:700;color:#a07a00;font-family:'Outfit',sans-serif}
+.section-pad{padding:80px 5%}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:0.75rem}
+.section-eyebrow::before{content:'';display:inline-block;width:28px;height:2px;background:var(--teal)}
+.section-title{font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--navy);line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.section-title em{color:var(--teal);font-style:italic}
+.section-subtitle{font-size:1rem;color:var(--slate);max-width:600px;line-height:1.8}
+#services{background:var(--white)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.service-card{background:var(--light);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(15,150,136,0.2)}
+.service-card:hover::before{transform:scaleX(1)}
+.svc-num{font-family:'Outfit',sans-serif;font-weight:800;font-size:0.75rem;color:rgba(15,150,136,0.4);letter-spacing:0.1em;margin-bottom:1rem}
+.svc-icon{width:48px;height:48px;border-radius:12px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.svc-icon svg{width:24px;height:24px;stroke:var(--teal);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.svc-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.05rem;color:var(--navy);margin-bottom:0.6rem}
+.svc-desc{font-size:0.88rem;color:var(--slate);line-height:1.75;margin-bottom:1.25rem}
+.svc-tools{display:flex;flex-wrap:wrap;gap:6px}
+.svc-tool{font-family:'Outfit',sans-serif;font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--white);border:1px solid var(--border);color:var(--slate);letter-spacing:0.04em}
+#about{background:var(--light)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem}
+.about-text-block p{font-size:0.95rem;color:var(--slate);line-height:1.9;margin-bottom:1.25rem}
+.about-highlights{display:flex;flex-direction:column;gap:0.75rem;margin-top:1.5rem}
+.highlight-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);transition:border-color 0.2s}
+.highlight-item:hover{border-color:rgba(15,150,136,0.3)}
+.hi-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:7px}
+.hi-text{font-size:0.88rem;color:var(--slate);line-height:1.6}
+.hi-text strong{color:var(--navy);font-weight:700}
+.about-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.astat{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem;text-align:center;transition:border-color 0.2s,transform 0.2s}
+.astat:hover{border-color:var(--teal);transform:translateY(-2px)}
+.astat-num{font-family:'Outfit',sans-serif;font-weight:800;font-size:2.2rem;color:var(--teal);line-height:1}
+.astat-label{font-size:0.75rem;color:var(--slate);margin-top:4px;font-weight:600;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:0.06em}
+.cert-list{display:flex;flex-direction:column;gap:0.75rem}
+.cert-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);transition:border-color 0.2s}
+.cert-item:hover{border-color:rgba(15,150,136,0.3)}
+.cert-check{width:28px;height:28px;border-radius:8px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-check svg{width:14px;height:14px;stroke:var(--teal);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.cert-name{font-family:'Outfit',sans-serif;font-weight:700;font-size:0.85rem;color:var(--navy)}
+.cert-org{font-size:0.75rem;color:var(--slate);margin-top:1px}
+#projects{background:var(--white)}
+.projects-featured{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.proj-card{background:var(--light);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s}
+.proj-card.featured{border-color:rgba(15,150,136,0.25);background:var(--teal-pale)}
+.proj-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(15,150,136,0.35)}
+.proj-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.proj-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-family:'Outfit',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
+.proj-badge.ai{background:#e8f4fd;border:1px solid #bee3f8;color:#2b6cb0}
+.proj-badge.award{background:#fff8e6;border:1px solid #f5c842;color:#a07a00}
+.proj-badge.ent{background:#f0fff4;border:1px solid #9ae6b4;color:#276749}
+.proj-badge.ongoing{background:#faf5ff;border:1px solid #d6bcfa;color:#6b46c1}
+.proj-type{font-family:'Outfit',sans-serif;font-size:0.72rem;color:var(--teal);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.proj-title{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.5rem;color:var(--navy);line-height:1.15;margin-bottom:0.25rem}
+.proj-subtitle{font-size:0.82rem;color:var(--slate);margin-bottom:1rem}
+.proj-roles{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.role-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:var(--white);border:1px solid var(--border);font-family:'Outfit',sans-serif;font-size:0.7rem;font-weight:700;color:var(--navy);letter-spacing:0.04em}
+.role-badge svg{width:12px;height:12px;stroke:var(--teal);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.proj-bullets{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
+.proj-bullet{display:flex;align-items:flex-start;gap:10px;font-size:0.85rem;color:var(--slate);line-height:1.65}
+.bullet-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:8px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px}
+.proj-tag{font-size:0.72rem;font-family:'Outfit',sans-serif;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--white);border:1px solid var(--border);color:var(--slate)}
+.proj-award-row{display:flex;align-items:center;gap:6px;margin-top:1rem;padding:8px 12px;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.35);border-radius:6px;font-size:0.78rem;font-weight:700;color:#8a6800;font-family:'Outfit',sans-serif}
+#resume{background:var(--light)}
+.resume-tabs{display:flex;gap:0;margin-bottom:2.5rem;border-bottom:2px solid var(--border)}
+.tab-btn{font-family:'Outfit',sans-serif;font-weight:600;padding:12px 24px;color:var(--slate);background:transparent;border:none;cursor:pointer;position:relative;letter-spacing:0.04em;text-transform:uppercase;font-size:0.8rem;transition:color 0.2s}
+.tab-btn.active{color:var(--teal)}
+.tab-btn.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--teal)}
+.tab-btn:hover{color:var(--teal)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;padding-bottom:2.5rem;position:relative}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::after{content:'';position:absolute;left:159px;top:10px;bottom:0;width:1px;background:var(--border)}
+.tl-item:last-child::after{display:none}
+.tl-left{text-align:right;padding-top:2px}
+.tl-period{font-family:'Outfit',sans-serif;font-size:0.72rem;font-weight:700;color:var(--teal);letter-spacing:0.08em;text-transform:uppercase;line-height:1.4}
+.tl-company{font-size:0.78rem;color:var(--slate);margin-top:3px;line-height:1.4}
+.tl-dot{position:absolute;left:152px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--white);border:2px solid var(--teal);z-index:1}
+.tl-role{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;color:var(--navy);margin-bottom:0.75rem}
+.tl-list{display:flex;flex-direction:column;gap:8px}
+.tl-list-item{display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--slate);line-height:1.65}
+.tl-icon{width:20px;height:20px;border-radius:6px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.tl-icon svg{width:11px;height:11px;stroke:var(--teal);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.skills-grid-r{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.skill-block{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.5rem}
+.sb-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:0.85rem;color:var(--navy);margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:1px solid var(--border)}
+.skill-bar-row{margin-bottom:12px}
+.skill-bar-head{display:flex;justify-content:space-between;margin-bottom:5px}
+.skill-bar-name{font-size:0.83rem;color:var(--slate);font-weight:500}
+.skill-bar-pct{font-family:'Outfit',sans-serif;font-size:0.72rem;color:var(--teal);font-weight:700}
+.skill-bar-track{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.skill-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--teal-light));width:0;transition:width 1.3s cubic-bezier(0.4,0,0.2,1)}
+.skill-bar-fill.run{width:var(--w)}
+.edu-grid{display:flex;flex-direction:column;gap:1rem}
+.edu-item{display:flex;align-items:flex-start;gap:14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem;transition:border-color 0.2s}
+.edu-item:hover{border-color:rgba(15,150,136,0.3)}
+.edu-icon{width:44px;height:44px;border-radius:10px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.edu-icon svg{width:22px;height:22px;stroke:var(--teal);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.edu-degree{font-family:'Outfit',sans-serif;font-weight:700;font-size:0.95rem;color:var(--navy)}
+.edu-inst{font-size:0.83rem;color:var(--teal);font-weight:600;margin-top:2px}
+.edu-year{font-size:0.78rem;color:var(--slate);margin-top:2px}
+#contact{background:var(--navy);color:#fff}
+#contact .section-eyebrow{color:#5ecdc7}
+#contact .section-title{color:#fff}
+#contact .section-title em{color:#5ecdc7}
+#contact .section-subtitle{color:rgba(255,255,255,0.6)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start}
+.contact-cards{display:flex;flex-direction:column;gap:1rem}
+.contact-card{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);transition:border-color 0.2s,background 0.2s,transform 0.15s}
+.contact-card:hover{border-color:rgba(94,205,199,0.4);background:rgba(94,205,199,0.06);transform:translateX(4px)}
+.cc-icon{width:42px;height:42px;border-radius:10px;background:rgba(15,150,136,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cc-icon svg{width:20px;height:20px;stroke:#5ecdc7;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cc-label{font-size:0.72rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.1em;font-family:'Outfit',sans-serif;font-weight:600}
+.cc-value{font-size:0.92rem;color:#fff;margin-top:2px;font-weight:500}
+.avail-box{display:flex;align-items:center;gap:10px;margin-top:1.5rem;padding:12px 16px;background:rgba(94,205,199,0.07);border:1px solid rgba(94,205,199,0.25);border-radius:8px}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite;flex-shrink:0}
+.avail-text{font-size:0.82rem;color:rgba(255,255,255,0.7);font-weight:500}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-family:'Outfit',sans-serif;font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.06em;text-transform:uppercase}
+.form-group input,.form-group textarea,.form-group select{padding:11px 14px;border-radius:8px;font-size:0.9rem;font-family:'Nunito',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#fff;transition:border-color 0.2s,background 0.2s;outline:none}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,0.3)}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:rgba(94,205,199,0.5);background:rgba(255,255,255,0.08)}
+.form-group select option{background:#1a1a2e;color:#fff}
+.form-group textarea{resize:vertical;min-height:110px}
+.btn-submit{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:var(--teal);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.9rem;border-radius:8px;border:none;cursor:pointer;letter-spacing:0.04em;transition:background 0.2s,transform 0.15s;width:100%}
+.btn-submit:hover{background:var(--teal-light);transform:translateY(-2px)}
+footer{background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.07);padding:1.5rem 5%;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.foot-copy{font-size:0.8rem;color:rgba(255,255,255,0.35);font-family:'Outfit',sans-serif}
+.foot-links{display:flex;gap:1.5rem}
+.foot-links a{font-size:0.8rem;color:rgba(255,255,255,0.35);font-family:'Outfit',sans-serif;transition:color 0.2s}
+.foot-links a:hover{color:#5ecdc7}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.d1{transition-delay:0.1s}.reveal.d2{transition-delay:0.2s}.reveal.d3{transition-delay:0.3s}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}.skills-grid-r{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .nav-links,.nav-hire{display:none}.hamburger{display:flex}
+  .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
+  .about-grid,.contact-grid,.projects-featured{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .tl-item{grid-template-columns:1fr}.tl-item::after,.tl-dot{display:none}.tl-left{text-align:left}
+  footer{flex-direction:column;gap:0.75rem;text-align:center}
+  .form-row{grid-template-columns:1fr}
+  .section-pad{padding:56px 5%}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Asma<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:asmaijaz3103@gmail.com" class="nav-hire">Hire Me ↗</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div id="mobile-menu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#resume" onclick="closeMenu()">Resume</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag"><span class="hero-tag-dot"></span>Available for new opportunities</div>
+      <div class="hero-greeting">Hi, I'm</div>
+      <h1 class="hero-name">Asma<br/><span>Ijaz.</span></h1>
+      <div class="hero-role"><strong>Software Quality Assurance Engineer</strong></div>
+      <p class="hero-desc">3+ years delivering end-to-end quality assurance for SaaS, Web, Mobile and API products. I embed quality throughout the entire software delivery pipeline — from test planning and execution to CI/CD integration. On key projects, I also stepped into Product Manager and Product Owner roles.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Get in Touch
+        </a>
+        <a href="#projects" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          View Projects
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">3<span>+</span></div><div class="hero-stat-label">Years in QA</div></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><div class="hero-stat-num">6<span>+</span></div><div class="hero-stat-label">Client Projects</div></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Key Products</div></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Certifications</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div class="hcard-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div><div class="hcard-title">SQA Specialist</div><div class="hcard-text">Manual, regression, API, performance and exploratory testing across web, mobile and APIs.</div></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div class="hcard-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4 12H2M22 12h-2M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 22v-2M12 4V2"/></svg></div>
+          <div><div class="hcard-title">CI/CD Pipeline Integration</div><div class="hcard-text">CI/CD pipeline integration, GitHub Actions, Docker, AWS — embedding quality into every stage of the delivery process.</div></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div class="hcard-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div><div class="hcard-title">P@SHA Award Runner-up 2025</div><div class="hcard-text">Led end-to-end QA for SWAI — AI Sales Intelligence platform — from inception to production.</div><div class="award-badge">🏆 P@SHA Awards 2025</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section-pad">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">What I Do</div>
+      <h2 class="section-title">Testing code,<br/>delivering <em>flawless</em> experiences.</h2>
+      <p class="section-subtitle">From functional testing to CI/CD pipeline integration — I cover the full quality spectrum to ensure your product ships with confidence.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal d1">
+        <div class="svc-num">01</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="svc-title">Manual Testing</div>
+        <div class="svc-desc">Thorough functional, regression, smoke, sanity, exploratory and UAT to uncover edge cases that automation misses. Full test plan, case design and defect documentation.</div>
+        <div class="svc-tools"><span class="svc-tool">Azure DevOps</span><span class="svc-tool">JIRA</span><span class="svc-tool">TestRail</span><span class="svc-tool">Confluence</span></div>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="svc-num">02</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="svc-title">API Testing</div>
+        <div class="svc-desc">End-to-end RESTful API validation — endpoint testing, authentication flows, response schema validation, negative testing and integration verification for robust backends.</div>
+        <div class="svc-tools"><span class="svc-tool">Postman</span><span class="svc-tool">REST APIs</span><span class="svc-tool">Swagger</span><span class="svc-tool">Newman</span></div>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="svc-num">03</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <div class="svc-title">Cross-Browser &amp; Device Testing</div>
+        <div class="svc-desc">Ensuring consistent functionality and visual quality across all browsers, operating systems and real devices — desktop and mobile — for maximum reach.</div>
+        <div class="svc-tools"><span class="svc-tool">BrowserStack</span><span class="svc-tool">LambdaTest</span><span class="svc-tool">Android</span><span class="svc-tool">iOS</span></div>
+      </div>
+      <div class="service-card reveal d1">
+        <div class="svc-num">04</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="svc-title">Performance Testing</div>
+        <div class="svc-desc">Load and stress testing of web applications to uncover bottlenecks, validate scalability and ensure your product holds up under peak traffic conditions.</div>
+        <div class="svc-tools"><span class="svc-tool">JMeter</span><span class="svc-tool">Load Testing</span><span class="svc-tool">Stress Testing</span></div>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="svc-num">05</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="svc-title">CI/CD Integration</div>
+        <div class="svc-desc">Integrating QA into automated pipelines for continuous testing, early defect prevention and fast feedback loops — ensuring quality is built in at every stage of delivery.</div>
+        <div class="svc-tools"><span class="svc-tool">GitHub Actions</span><span class="svc-tool">Azure Pipelines</span><span class="svc-tool">Docker</span><span class="svc-tool">AWS</span></div>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="svc-num">06</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="svc-title">QA Documentation</div>
+        <div class="svc-desc">Comprehensive test plans, bug reports, RTM, release notes, sprint test summaries and quality documentation that keeps teams aligned and stakeholders informed.</div>
+        <div class="svc-tools"><span class="svc-tool">Confluence</span><span class="svc-tool">Azure Wiki</span><span class="svc-tool">Excel</span><span class="svc-tool">Google Sheets</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section-pad">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">About Me</div>
+      <h2 class="section-title">Shaping innovation<br/>through <em>quality</em> and precision.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text-block reveal d1">
+        <p>I'm a Software Quality Assurance Engineer based in Islamabad, Pakistan, with a Bachelor's in Computer Science from UET Taxila. I specialize in ensuring end-to-end quality of SaaS, web, mobile, and API-based applications across Agile sprints.</p>
+        <p>Beyond core QA disciplines, I bring hands-on experience with CI/CD pipelines, AWS, GitHub Actions, Docker, and Linux — enabling me to embed quality thinking early in the delivery process rather than treating it as a late-stage gate.</p>
+        <p>On key projects like SWAI and Vector Systems AI, I also stepped into Product Management and Product Owner roles — defining requirements, aligning stakeholders, managing product backlogs, and driving quality ownership at a strategic level.</p>
+        <div class="about-highlights">
+          <div class="highlight-item"><div class="hi-dot"></div><div class="hi-text"><strong>P@SHA Awards 2025 Runner-up</strong> — Led QA for SWAI AI Sales Intelligence platform from inception to production.</div></div>
+          <div class="highlight-item"><div class="hi-dot"></div><div class="hi-text"><strong>Dual PM + QA role</strong> on SWAI and VSI-AI — handled product backlog, sprint planning, stakeholder demos and quality ownership simultaneously.</div></div>
+          <div class="highlight-item"><div class="hi-dot"></div><div class="hi-text"><strong>6+ client projects</strong> across automotive, FinTech, healthcare, oil &amp; gas, real estate, and food industries.</div></div>
+          <div class="highlight-item"><div class="hi-dot"></div><div class="hi-text"><strong>AWS Solution Architect trained</strong> — sponsored by PSEB &amp; P@SHA, certified by Techlift (2022).</div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="about-stats-grid">
+          <div class="astat"><div class="astat-num">3+</div><div class="astat-label">Years Exp</div></div>
+          <div class="astat"><div class="astat-num">6+</div><div class="astat-label">Client Projects</div></div>
+          <div class="astat"><div class="astat-num">5</div><div class="astat-label">Key Products</div></div>
+          <div class="astat"><div class="astat-num">4</div><div class="astat-label">Certifications</div></div>
+        </div>
+        <div class="section-eyebrow" style="margin-bottom:1rem">Certifications</div>
+        <div class="cert-list">
+          <div class="cert-item"><div class="cert-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="cert-name">Lean Six Sigma White Belt</div><div class="cert-org">Council for Six Sigma Certification</div></div></div>
+          <div class="cert-item"><div class="cert-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="cert-name">Six Sigma Yellow Belt</div><div class="cert-org">6Sigma Study E-Learner</div></div></div>
+          <div class="cert-item"><div class="cert-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="cert-name">Scrum Fundamental Certified</div><div class="cert-org">Scrum Study</div></div></div>
+          <div class="cert-item"><div class="cert-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="cert-name">Postman API Fundamentals Student Expert</div><div class="cert-org">Postman Academy</div></div></div>
+          <div class="cert-item"><div class="cert-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="cert-name">AWS DevOps Training (PSEB &amp; P@SHA)</div><div class="cert-org">Certified by Techlift · 2022</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section-pad">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Key Projects</div>
+      <h2 class="section-title">Products I've helped<br/><em>build</em> and ship.</h2>
+      <p class="section-subtitle">Selected projects where I led QA — and in key cases, also wore the Product Manager and Product Owner hat.</p>
+    </div>
+    <div class="projects-featured reveal d1">
+      <div class="proj-card featured">
+        <div class="proj-header">
+          <div><div class="proj-type">Featured · AI Platform</div><div class="proj-title">SWAI</div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="proj-badge ai">AI / ML</span>
+            <span class="proj-badge award">🏆 P@SHA 2025</span>
+          </div>
+        </div>
+        <div class="proj-subtitle">AI-Powered Sales Intelligence Platform · Web &amp; Mobile</div>
+        <div class="proj-roles">
+          <span class="role-badge"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>QA Lead</span>
+          <span class="role-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Product Manager</span>
+          <span class="role-badge"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Product Owner</span>
+        </div>
+        <div class="proj-bullets">
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Led end-to-end QA from inception to production; product ranked Runner-up at P@SHA Awards 2025</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Managed product backlog, sprint planning, acceptance criteria and stakeholder demos in the PM/PO capacity</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Performed UI, API, and exploratory testing to validate voice recognition (Deepgram), objection identification, and geofencing accuracy</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Defined user stories and release quality gates across all sprints; ensured zero critical defect leakage to production</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Logged, tracked, and verified defects in Azure Boards; collaborated with developers for timely resolution</span></div>
+        </div>
+        <div class="proj-tags"><span class="proj-tag">AI/ML Testing</span><span class="proj-tag">Voice Recognition QA</span><span class="proj-tag">API Testing</span><span class="proj-tag">Regression</span><span class="proj-tag">UAT</span><span class="proj-tag">Agile/Scrum</span></div>
+        <div class="proj-award-row">🏆 P@SHA Awards 2025 — Runner-up · Technologies: AI/ML, Deepgram, REST APIs, Mobile &amp; Web</div>
+      </div>
+      <div class="proj-card featured">
+        <div class="proj-header">
+          <div><div class="proj-type">Featured · Enterprise AI</div><div class="proj-title">Vector Systems AI</div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="proj-badge ent">Enterprise</span>
+            <span class="proj-badge ongoing">Ongoing</span>
+          </div>
+        </div>
+        <div class="proj-subtitle">RAG-Based Enterprise AI Solution · Ongoing</div>
+        <div class="proj-roles">
+          <span class="role-badge"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>QA Lead</span>
+          <span class="role-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Product Manager</span>
+          <span class="role-badge"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Product Owner</span>
+        </div>
+        <div class="proj-bullets">
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Managed the full QA process and acted as Product Owner — defining requirements, owning the backlog, and aligning the engineering team</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Performed manual functional testing of RAG-based AI workflows and enterprise data integrations</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Validated AI response accuracy, relevance, and context consistency against indexed enterprise documents</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Tested document retrieval logic ensuring correct data sourcing before AI response generation</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Conducted security validation and UAT cycles with enterprise stakeholders</span></div>
+        </div>
+        <div class="proj-tags"><span class="proj-tag">RAG Testing</span><span class="proj-tag">AI Response Validation</span><span class="proj-tag">Security Testing</span><span class="proj-tag">UAT</span><span class="proj-tag">OpenAI</span><span class="proj-tag">Enterprise QA</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-header">
+          <div><div class="proj-type">Healthcare · IoT</div><div class="proj-title">Heylo</div></div>
+          <span class="proj-badge ai">IoT Platform</span>
+        </div>
+        <div class="proj-subtitle">IoT-Based Residential Care Platform · Web &amp; Mobile</div>
+        <div class="proj-roles"><span class="role-badge"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>QA Engineer</span></div>
+        <div class="proj-bullets">
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Designed test plans and scenarios for IoT-enabled healthcare workflows</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Validated smart device alerts, real-time notifications, video &amp; audio calling features</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Functional, exploratory, and UAT across Android, iOS, and web platforms</span></div>
+        </div>
+        <div class="proj-tags"><span class="proj-tag">IoT Testing</span><span class="proj-tag">Video/Audio QA</span><span class="proj-tag">Functional</span><span class="proj-tag">UAT</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-header">
+          <div><div class="proj-type">Enterprise · FinTech</div><div class="proj-title">Super App Pakistan</div></div>
+          <span class="proj-badge ent">Super App</span>
+        </div>
+        <div class="proj-subtitle">Enterprise Digital Super App · Web &amp; Mobile</div>
+        <div class="proj-roles"><span class="role-badge"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>QA Engineer</span></div>
+        <div class="proj-bullets">
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Tested messaging, AI chatbots, digital payments, and loyalty systems end-to-end</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Validated payment gateways, transaction accuracy, and failure handling</span></div>
+          <div class="proj-bullet"><div class="bullet-dot"></div><span>Cross-platform integration testing across Android, iOS and web</span></div>
+        </div>
+        <div class="proj-tags"><span class="proj-tag">Payment QA</span><span class="proj-tag">AI Chatbot Testing</span><span class="proj-tag">Integration Testing</span><span class="proj-tag">Regression</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resume" class="section-pad">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Resume</div>
+      <h2 class="section-title">Experience, Education<br/>&amp; <em>Skills.</em></h2>
+    </div>
+    <div class="resume-tabs reveal d1">
+      <button class="tab-btn active" onclick="showTab('exp',event)">Experience</button>
+      <button class="tab-btn" onclick="showTab('edu',event)">Education</button>
+      <button class="tab-btn" onclick="showTab('skills',event)">Skills</button>
+    </div>
+    <div id="tab-exp" class="tab-panel active">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-period">Mar 2023 — Present</div><div class="tl-company">Coding Key<br/>Islamabad, PK</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-right">
+            <div class="tl-role">Associate SQA Engineer</div>
+            <div class="tl-list">
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Delivered end-to-end QA for 5+ products including AI, IoT, Legal Tech and FinTech platforms</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Acted as <strong>Product Manager and Product Owner</strong> on SWAI and VSI-AI — owned the product backlog, ran sprint planning, led stakeholder demos, and managed release quality gates</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Designed and executed test plans, scenarios and cases for web and mobile (Android/iOS)</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Performed functional, regression, smoke, sanity, integration, usability and UI/UX testing</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>API testing via Postman; performance &amp; load testing with JMeter; cross-browser via BrowserStack and LambdaTest</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Managed defects in Azure Boards; created RTM, test plans, test reports, and release notes</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Provided client-facing QA updates, sprint summaries, demo feedback and final sign-off reports</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Led QA on SWAI — <strong>P@SHA Awards 2025 Runner-up</strong> (AI Sales Intelligence platform)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-period">Feb — Mar 2023</div><div class="tl-company">Joyn Digital Group<br/>Islamabad, PK</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-right">
+            <div class="tl-role">SQA Engineer</div>
+            <div class="tl-list">
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Supported QA operations for cloud-hosted applications and server performance monitoring</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Managed Linux-based QA environments, improving availability for ongoing test cycles</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Assisted deployment testing and coordinated post-deployment validation with clients</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Bridged QA, development, and deployment teams using pipeline and infrastructure knowledge</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-period">Nov 2022 — Jan 2023</div><div class="tl-company">Contour Software<br/>Islamabad, PK</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-right">
+            <div class="tl-role">AWS Solution Architect Trainee</div>
+            <div class="tl-list">
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>AWS DevOps Training Program — sponsored by PSEB &amp; P@SHA, certified by Techlift</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Hands-on with EC2, VPC, S3, RDS, IAM, ECS, Lambda, CloudFormation, CodePipeline, CodeDeploy</span></div>
+              <div class="tl-list-item"><div class="tl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Practiced real-world CI/CD automation and infrastructure provisioning workflows</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="tab-edu" class="tab-panel">
+      <div class="edu-grid">
+        <div class="edu-item"><div class="edu-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div><div class="edu-degree">Bachelor of Computer Science</div><div class="edu-inst">University of Engineering and Technology Taxila</div><div class="edu-year">2017 – 2021</div></div></div>
+        <div class="edu-item"><div class="edu-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div><div class="edu-degree">FSc. Pre-Engineering</div><div class="edu-inst">Army Public College, Saddar Karachi</div><div class="edu-year">2015 – 2017</div></div></div>
+      </div>
+    </div>
+    <div id="tab-skills" class="tab-panel">
+      <div class="skills-grid-r" id="skills-panel">
+        <div class="skill-block">
+          <div class="sb-title">Testing Expertise</div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">Manual Testing</span><span class="skill-bar-pct">95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:95%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">Regression Testing</span><span class="skill-bar-pct">92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:92%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">API Testing (Postman)</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:85%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">Performance (JMeter)</span><span class="skill-bar-pct">80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:80%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">Exploratory Testing</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:90%"></div></div></div>
+        </div>
+        <div class="skill-block">
+          <div class="sb-title">Tools &amp; Pipeline</div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">Azure DevOps / JIRA</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:90%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">GitHub / GitHub Actions</span><span class="skill-bar-pct">82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:82%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">BrowserStack / LambdaTest</span><span class="skill-bar-pct">88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:88%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">Docker / Linux</span><span class="skill-bar-pct">72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:72%"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-head"><span class="skill-bar-name">AWS (EC2, S3, IAM, ECS)</span><span class="skill-bar-pct">70%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:70%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section-pad">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Contact</div>
+      <h2 class="section-title">Let's work<br/><em>together.</em></h2>
+      <p class="section-subtitle">Open to full-time roles, contract QA projects, and remote positions. If you're looking for a QA engineer who also thinks in products and pipelines — let's talk.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal d1">
+        <div class="contact-cards">
+          <a class="contact-card" href="mailto:asmaijaz3103@gmail.com"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="cc-label">Email</div><div class="cc-value">asmaijaz3103@gmail.com</div></div></a>
+          <a class="contact-card" href="https://www.linkedin.com/in/asma-ijaz-/" target="_blank" rel="noopener"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div><div class="cc-label">LinkedIn</div><div class="cc-value">linkedin.com/in/asma-ijaz-</div></div></a>
+          <a class="contact-card" href="tel:+923304377700"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="cc-label">Phone</div><div class="cc-value">+92 330 4377700</div></div></a>
+          <div class="contact-card" style="cursor:default"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="cc-label">Location</div><div class="cc-value">Islamabad, Pakistan · Remote OK</div></div></div>
+        </div>
+        <div class="avail-box"><div class="avail-dot"></div><div class="avail-text">Available for new roles — full-time, contract &amp; remote</div></div>
+      </div>
+      <div class="reveal d2">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Smith"/></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="john@company.com"/></div>
+          </div>
+          <div class="form-group"><label>Service</label><select><option value="">Select a service...</option><option>Manual Testing</option><option>API Testing</option><option>Performance Testing</option><option>CI/CD Integration</option><option>QA Consultation</option><option>Other</option></select></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+          <button class="btn-submit" type="button" onclick="handleSubmit(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-copy">© 2025 Asma Ijaz · SQA Engineer · Islamabad, Pakistan</div>
+  <div class="foot-links">
+    <a href="#hero">Top ↑</a>
+    <a href="mailto:asmaijaz3103@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/asma-ijaz-/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20))
+function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobile-menu').classList.remove('open')}
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:0.1})
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+function runBars(){document.querySelectorAll('#tab-skills .skill-bar-fill').forEach(b=>b.classList.add('run'))}
+const skillObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)runBars()}),{threshold:0.2})
+const sp=document.getElementById('skills-panel');if(sp)skillObs.observe(sp)
+function showTab(id,event){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'))
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'))
+  document.getElementById('tab-'+id).classList.add('active')
+  event.target.classList.add('active')
+  if(id==='skills')setTimeout(runBars,100)
+}
+function handleSubmit(btn){
+  const inputs=document.querySelectorAll('#contact input,#contact textarea,#contact select')
+  const name=inputs[0].value,email=inputs[1].value,service=inputs[2].value,msg=inputs[3].value
+  if(!name||!email||!msg){btn.textContent='Please fill required fields';setTimeout(()=>{btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message'},2000);return}
+  window.location.href='mailto:asmaijaz3103@gmail.com?subject=Portfolio Inquiry from '+encodeURIComponent(name)+'&body=Name: '+encodeURIComponent(name)+'%0AEmail: '+encodeURIComponent(email)+'%0AService: '+encodeURIComponent(service)+'%0A%0A'+encodeURIComponent(msg)
+}
+</script>
+</body>
+</html>
